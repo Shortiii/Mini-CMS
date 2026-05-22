@@ -6,75 +6,10 @@
   <title>Glow Diaries</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-      --plum:       #6b3fa0;
-      --plum-mid:   #8b5cc8;
-      --plum-soft:  #c4a8e8;
-      --blush:      #f5eeff;
-      --blush-deep: #ede0ff;
-      --rose:       #d4a0c0;
-      --cream:      #fdf9ff;
-      --ink:        #2a1a3e;
-      --muted:      #7a6690;
-      --border:     #e8d8f8;
-      --font-serif: 'Cormorant Garamond', Georgia, serif;
-      --font-sans:  'Jost', sans-serif;
-    }
-
-    html { scroll-behavior: smooth; }
-    body {
-      background: var(--cream);
-      color: var(--ink);
-      font-family: var(--font-sans);
-      font-weight: 300;
-      -webkit-font-smoothing: antialiased;
-    }
-    body { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='4' fill='%236b3fa0' opacity='.6'/%3E%3C/svg%3E") 10 10, auto; }
-
-    /* ── LOADER ──────────────────────────────────────────── */
-    #loader {
-      position: fixed; inset: 0; z-index: 300;
-      background: var(--cream);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 16px;
-      transition: opacity .5s ease;
-    }
-    #loader.out { opacity: 0; pointer-events: none; }
-    .ld-petal { font-size: 32px; animation: spin 2s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .ld-text { font-family: var(--font-serif); font-style: italic; font-size: 15px; color: var(--plum-soft); letter-spacing: .1em; }
-
-    /* ── HEADER ──────────────────────────────────────────── */
-    header {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(253,249,255,.94);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-    }
-    .header-inner {
-      max-width: 1140px; margin: 0 auto;
-      padding: 0 40px; height: 68px;
-      display: flex; align-items: center; justify-content: space-between; gap: 24px;
-    }
-    .header-logo { display: flex; flex-direction: column; line-height: 1; }
-    #siteName { font-family: var(--font-serif); font-size: 26px; font-weight: 600; color: var(--plum); letter-spacing: -.3px; }
-    #headerTag { font-size: 9px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--plum-soft); margin-top: 2px; }
-    .header-nav { display: flex; gap: 32px; list-style: none; }
-    .header-nav a { font-size: 13px; font-weight: 400; color: var(--muted); text-decoration: none; transition: color .2s; }
-    .header-nav a:hover { color: var(--plum); }
-    .header-cta {
-      padding: 10px 24px; border-radius: 40px;
-      background: var(--plum); color: #fff;
-      font-family: var(--font-sans); font-size: 12px; font-weight: 500;
-      letter-spacing: .06em; border: none; cursor: pointer;
-      transition: background .2s, transform .15s; white-space: nowrap;
-    }
-    .header-cta:hover { background: var(--plum-mid); transform: translateY(-1px); }
-
-    /* ── HERO ────────────────────────────────────────────── */
+    /* ── HERO ──────────────────────────────────────────── */
     .hero {
       background: linear-gradient(135deg, #f8f0ff 0%, #ede0ff 50%, #f5e8f8 100%);
       border-bottom: 1px solid var(--border);
@@ -93,23 +28,22 @@
       pointer-events: none;
     }
     .hero-inner {
-      max-width: 1140px; margin: 0 auto;
-      padding: 80px 40px 72px;
+      max-width: 1140px; margin: 0 auto; padding: 80px 40px 72px;
       display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
       align-items: center; position: relative; z-index: 1;
     }
     .hero-text { animation: fadeUp .7s ease both; }
-    #issueLabel {
+    .hero-eyebrow {
       display: inline-flex; align-items: center; gap: 8px;
       font-size: 11px; font-weight: 500; letter-spacing: .2em;
       text-transform: uppercase; color: var(--plum); margin-bottom: 20px;
     }
-    #issueLabel::before { content: '✦'; font-size: 9px; color: var(--plum-soft); }
+    .hero-eyebrow::before { content: '✦'; font-size: 9px; color: var(--plum-soft); }
     #heroTitle {
       font-family: var(--font-serif);
-      font-size: clamp(42px, 5vw, 64px);
-      font-weight: 300; line-height: 1.08;
-      letter-spacing: -.5px; color: var(--ink); margin-bottom: 22px;
+      font-size: clamp(40px, 5vw, 62px);
+      font-weight: 300; line-height: 1.1; letter-spacing: -.5px;
+      color: var(--ink); margin-bottom: 20px;
     }
     #heroTitle em { font-style: italic; color: var(--plum); }
     #heroDesc { font-size: 16px; line-height: 1.85; color: var(--muted); margin-bottom: 36px; max-width: 460px; }
@@ -123,52 +57,39 @@
     .subscribe-row input:focus { border-color: var(--plum-soft); box-shadow: 0 0 0 3px rgba(107,63,160,.08); }
     .subscribe-row input::placeholder { color: var(--plum-soft); }
     .btn-sub {
-      padding: 13px 28px; border-radius: 40px;
-      background: var(--plum); color: #fff;
+      padding: 13px 28px; border-radius: 40px; background: var(--plum); color: #fff;
       font-family: var(--font-sans); font-size: 13px; font-weight: 500;
-      border: none; cursor: pointer;
-      transition: background .2s, transform .15s; white-space: nowrap;
+      border: none; cursor: pointer; transition: background .2s, transform .15s; white-space: nowrap;
     }
     .btn-sub:hover { background: var(--plum-mid); transform: translateY(-1px); }
-    #formNote { font-size: 12px; color: var(--plum-soft); }
+    .form-note { font-size: 12px; color: var(--plum-soft); }
 
     /* author card */
     .hero-author {
       animation: fadeUp .7s .15s ease both;
       background: #fff; border: 1px solid var(--border);
-      border-radius: 20px; padding: 40px 36px;
-      text-align: center;
-      box-shadow: 0 4px 40px rgba(107,63,160,.07);
-      position: relative;
+      border-radius: 20px; padding: 40px 36px; text-align: center;
+      box-shadow: 0 4px 40px rgba(107,63,160,.07); position: relative;
     }
-    .hero-author::before {
-      content: '🌸'; position: absolute; top: -14px; left: 50%; transform: translateX(-50%); font-size: 28px;
-    }
+    .hero-author::before { content: '🌸'; position: absolute; top: -14px; left: 50%; transform: translateX(-50%); font-size: 28px; }
     #authorImgWrap {
-      width: 100px; height: 100px; border-radius: 50%;
-      margin: 0 auto 16px;
+      width: 96px; height: 96px; border-radius: 50%; margin: 0 auto 16px;
       background: linear-gradient(135deg, var(--blush-deep), var(--blush));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 42px; border: 3px solid var(--border);
-      outline: 3px solid var(--blush-deep); outline-offset: 3px; overflow: hidden;
+      display: flex; align-items: center; justify-content: center; font-size: 40px;
+      border: 3px solid var(--border); outline: 3px solid var(--blush-deep); outline-offset: 3px; overflow: hidden;
     }
     #authorImgWrap img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-    #authorName { font-family: var(--font-serif); font-size: 24px; font-weight: 600; color: var(--ink); margin-bottom: 10px; }
+    #authorName { font-family: var(--font-serif); font-size: 22px; font-weight: 600; color: var(--ink); margin-bottom: 10px; }
     #authorBio { font-size: 14px; line-height: 1.8; color: var(--muted); }
 
-    /* ── SECTION BASE ────────────────────────────────────── */
-    .section { max-width: 1140px; margin: 0 auto; padding: 64px 40px; }
-    .section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 36px; }
-    .section-tag { font-size: 10px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: var(--plum); }
-    .section-rule-h { flex: 1; height: 1px; background: linear-gradient(90deg, var(--border), transparent); }
-
-    /* ── TOPICS NAV CARDS ─────────────────────────────────── */
-    .topics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    /* ── TOPIC NAV CARDS ───────────────────────────────── */
+    .topics-wrap { max-width: 1140px; margin: 0 auto; padding: 64px 40px 48px; }
+    .topics-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
     .topic-card {
       background: #fff; border: 1px solid var(--border);
       border-radius: 16px; padding: 32px 28px 28px;
-      cursor: pointer; position: relative; overflow: hidden;
-      text-decoration: none; display: block;
+      text-decoration: none; display: block; color: inherit;
+      position: relative; overflow: hidden;
       transition: transform .25s, box-shadow .25s, border-color .25s;
     }
     .topic-card::after {
@@ -182,77 +103,47 @@
     .topic-name { font-family: var(--font-serif); font-size: 20px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
     .topic-desc { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 16px; }
     .topic-arrow { font-size: 12px; font-weight: 500; color: var(--plum); transition: letter-spacing .2s; }
-    .topic-card:hover .topic-arrow { letter-spacing: .06em; }
+    .topic-card:hover .topic-arrow { letter-spacing: .05em; }
 
-    /* ── CONTENT SECTIONS (each topic) ──────────────────── */
+    /* ── CONTENT SECTIONS ──────────────────────────────── */
     .content-section {
       border-top: 1px solid var(--border);
-      scroll-margin-top: 80px; /* offset for sticky header */
+      scroll-margin-top: 76px;
     }
-    .content-section-inner { max-width: 1140px; margin: 0 auto; padding: 72px 40px; }
+    .content-section-inner { max-width: 1140px; margin: 0 auto; padding: 64px 40px 72px; }
+
+    .cs-header {
+      display: flex; align-items: flex-end;
+      justify-content: space-between; margin-bottom: 48px; flex-wrap: wrap; gap: 12px;
+    }
     .cs-eyebrow {
-      display: inline-flex; align-items: center; gap: 10px;
       font-size: 10px; font-weight: 500; letter-spacing: .26em;
-      text-transform: uppercase; color: var(--plum); margin-bottom: 18px;
+      text-transform: uppercase; color: var(--plum);
+      display: flex; align-items: center; gap: 10px;
     }
-    .cs-eyebrow span { display: block; width: 28px; height: 1px; background: var(--plum-soft); }
+    .cs-eyebrow span { display: block; width: 24px; height: 1px; background: var(--plum-soft); }
+    .view-all-link {
+      font-size: 12px; font-weight: 500; color: var(--plum);
+      text-decoration: none; display: inline-flex; align-items: center; gap: 4px;
+      padding: 8px 20px; border: 1.5px solid var(--border);
+      border-radius: 40px; transition: all .2s;
+    }
+    .view-all-link:hover { border-color: var(--plum); background: var(--blush); }
+
     .cs-title {
       font-family: var(--font-serif);
-      font-size: clamp(32px, 4vw, 48px); font-weight: 300;
+      font-size: clamp(28px, 3.5vw, 44px); font-weight: 300;
       line-height: 1.12; letter-spacing: -.4px;
-      color: var(--ink); margin-bottom: 16px;
+      color: var(--ink); margin-bottom: 10px;
     }
     .cs-title em { font-style: italic; color: var(--plum); }
-    .cs-intro { font-size: 16px; line-height: 1.85; color: var(--muted); max-width: 600px; margin-bottom: 48px; }
+    .cs-intro { font-size: 15px; line-height: 1.85; color: var(--muted); max-width: 580px; margin-bottom: 40px; }
+    .cs-rule { border: none; border-top: 1px solid var(--border); margin-bottom: 36px; }
 
-    /* post grid inside each section */
-    .posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    .post-card {
-      background: #fff; border: 1px solid var(--border);
-      border-radius: 16px; overflow: hidden;
-      transition: transform .25s, box-shadow .25s;
-    }
-    .post-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(107,63,160,.11); }
-    .post-thumb {
-      height: 160px; display: flex; align-items: center;
-      justify-content: center; font-size: 50px;
-    }
-    .post-thumb.c1 { background: linear-gradient(135deg, #f0e8ff, #e8d5f8); }
-    .post-thumb.c2 { background: linear-gradient(135deg, #fce8f4, #f5d8ee); }
-    .post-thumb.c3 { background: linear-gradient(135deg, #e8f0ff, #d8e8f8); }
-    .post-thumb.c4 { background: linear-gradient(135deg, #fff0e8, #f8e0d5); }
-    .post-thumb.c5 { background: linear-gradient(135deg, #f0ffe8, #d8f0d8); }
-    .post-thumb.c6 { background: linear-gradient(135deg, #ffe8f8, #f0d5ec); }
-    .post-body { padding: 22px; }
-    .post-tag {
-      display: inline-block; margin-bottom: 10px;
-      font-size: 10px; font-weight: 500; letter-spacing: .18em;
-      text-transform: uppercase; color: var(--plum);
-      background: var(--blush); border-radius: 40px; padding: 3px 10px;
-    }
-    .post-title { font-family: var(--font-serif); font-size: 18px; font-weight: 600; line-height: 1.25; color: var(--ink); margin-bottom: 10px; }
-    .post-excerpt { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 16px; }
-    .post-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
-    .post-meta-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--plum-soft); }
-    .post-meta span { font-size: 11px; color: var(--plum-soft); }
-    .read-more { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--plum); cursor: pointer; transition: gap .2s; }
-    .read-more:hover { gap: 10px; }
-
-    /* featured post (first in section) */
-    .post-card.featured {
-      grid-column: span 3;
-      display: grid; grid-template-columns: 1fr 1fr;
-    }
-    .post-card.featured .post-thumb { height: 100%; min-height: 220px; }
-    .post-card.featured .post-body { padding: 36px 32px; display: flex; flex-direction: column; justify-content: center; }
-    .post-card.featured .post-title { font-size: 24px; margin-bottom: 14px; }
-    .post-card.featured .post-excerpt { font-size: 14px; }
-
-    /* ── QUOTE BAND ──────────────────────────────────────── */
+    /* ── QUOTE BAND ────────────────────────────────────── */
     .quote-band {
       background: linear-gradient(135deg, var(--plum) 0%, #9b5ec8 100%);
-      padding: 72px 40px; text-align: center;
-      position: relative; overflow: hidden;
+      padding: 72px 40px; text-align: center; position: relative; overflow: hidden;
     }
     .quote-band::before {
       content: '❝'; position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
@@ -260,133 +151,43 @@
       font-family: var(--font-serif); line-height: 1; pointer-events: none;
     }
     .quote-text {
-      font-family: var(--font-serif);
-      font-size: clamp(22px, 3.5vw, 34px);
-      font-style: italic; font-weight: 300;
-      color: #fff; max-width: 780px;
-      margin: 0 auto 20px; line-height: 1.5;
-      position: relative; z-index: 1;
+      font-family: var(--font-serif); font-size: clamp(20px, 3vw, 32px);
+      font-style: italic; font-weight: 300; color: #fff;
+      max-width: 740px; margin: 0 auto 16px; line-height: 1.5; position: relative; z-index: 1;
     }
     .quote-attr { font-size: 13px; color: rgba(255,255,255,.6); letter-spacing: .1em; }
 
-    /* ── NEWSLETTER STRIP ────────────────────────────────── */
-    .nl-strip {
-      background: var(--blush-deep);
-      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-      padding: 64px 40px; text-align: center;
-    }
-    .nl-title { font-family: var(--font-serif); font-size: 34px; font-weight: 600; color: var(--ink); margin-bottom: 10px; }
-    .nl-sub { font-size: 15px; color: var(--muted); margin-bottom: 30px; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.7; }
-    .nl-form { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-    .nl-form input {
-      padding: 13px 22px; border-radius: 40px; width: 300px;
-      border: 1.5px solid var(--border); background: #fff;
-      font-family: var(--font-sans); font-size: 14px; color: var(--ink);
-      outline: none; transition: border-color .2s;
-    }
-    .nl-form input:focus { border-color: var(--plum-soft); }
-    .nl-form input::placeholder { color: var(--plum-soft); }
-    .nl-btn {
-      padding: 13px 32px; border-radius: 40px;
-      background: var(--plum); color: #fff;
-      font-family: var(--font-sans); font-size: 13px; font-weight: 500;
-      border: none; cursor: pointer; transition: background .2s;
-    }
-    .nl-btn:hover { background: var(--plum-mid); }
-
-    /* ── FOOTER ──────────────────────────────────────────── */
-    footer { background: var(--ink); padding: 48px 40px 32px; }
-    .footer-inner {
-      max-width: 1140px; margin: 0 auto;
-      display: flex; align-items: flex-start; justify-content: space-between;
-      gap: 40px; flex-wrap: wrap;
-      padding-bottom: 32px;
-      border-bottom: 1px solid rgba(255,255,255,.1);
-    }
-    .footer-brand-name { font-family: var(--font-serif); font-size: 28px; font-weight: 600; color: var(--plum-soft); margin-bottom: 8px; }
-    .footer-tagline { font-size: 13px; color: rgba(255,255,255,.4); max-width: 240px; line-height: 1.6; }
-    .footer-col-title { font-size: 10px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--plum-soft); margin-bottom: 16px; }
-    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .footer-links a { font-size: 13px; color: rgba(255,255,255,.5); text-decoration: none; transition: color .2s; }
-    .footer-links a:hover { color: var(--plum-soft); }
-    .footer-bottom {
-      max-width: 1140px; margin: 24px auto 0;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 8px;
-    }
-    #footerCopy { font-size: 12px; color: rgba(255,255,255,.3); }
-    .footer-heart { font-size: 12px; color: rgba(255,255,255,.3); }
-
-    /* ── ANIMATIONS ──────────────────────────────────────── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(22px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .fade-1 { animation: fadeUp .6s .1s ease both; }
-    .fade-2 { animation: fadeUp .6s .2s ease both; }
-    .fade-3 { animation: fadeUp .6s .3s ease both; }
-
-    /* ── RESPONSIVE ──────────────────────────────────────── */
-    @media (max-width: 960px) {
-      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    /* ── RESPONSIVE ────────────────────────────────────── */
+    @media (max-width: 860px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; padding: 56px 24px 48px; }
       .hero-author { max-width: 420px; }
-      .topics-grid { grid-template-columns: 1fr 1fr; }
-      .posts-grid { grid-template-columns: 1fr 1fr; }
-      .post-card.featured { grid-column: span 2; }
     }
     @media (max-width: 640px) {
-      .header-inner { padding: 0 20px; }
-      .header-nav { display: none; }
-      .hero-inner, .content-section-inner { padding: 48px 20px; }
-      .section { padding: 48px 20px; }
-      .topics-grid, .posts-grid { grid-template-columns: 1fr; }
-      .post-card.featured { grid-column: span 1; display: block; }
-      .post-card.featured .post-thumb { height: 160px; }
-      .quote-band { padding: 56px 24px; }
-      .nl-strip { padding: 48px 20px; }
-      footer { padding: 40px 20px 24px; }
-      .footer-inner { flex-direction: column; gap: 32px; }
-      .footer-bottom { flex-direction: column; align-items: center; text-align: center; }
+      .topics-wrap { padding: 40px 20px 32px; }
+      .topics-grid { grid-template-columns: 1fr; }
+      .content-section-inner { padding: 48px 20px 56px; }
+      .quote-band { padding: 56px 20px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- LOADER -->
-  <div id="loader">
-    <div class="ld-petal">🌸</div>
-    <div class="ld-text">Loading your glow…</div>
-  </div>
+  <div id="loader"><div class="ld-petal">🌸</div><div class="ld-text">Loading your glow…</div></div>
 
-  <!-- HEADER -->
-  <header>
-    <div class="header-inner">
-      <div class="header-logo">
-        <span id="siteName">Glow Diaries</span>
-        <span id="headerTag">Skincare Stories</span>
-      </div>
-      <ul class="header-nav">
-        <li><a href="#section-routines">Routines</a></li>
-        <li><a href="#section-reviews">Reviews</a></li>
-        <li><a href="#section-stories">Stories</a></li>
-        <li><a href="#nl-section">Newsletter</a></li>
-      </ul>
-      <button class="header-cta" id="topbarCta">Join the Community</button>
-    </div>
-  </header>
+  <header id="site-header"></header>
 
-  <!-- HERO -->
+  <!-- ── HERO ─────────────────────────────────────── -->
   <section class="hero">
     <div class="hero-inner">
       <div class="hero-text">
-        <div id="issueLabel">Est. 2024</div>
+        <div class="hero-eyebrow" id="issueLabel">Est. 2024</div>
         <h1 id="heroTitle">Your skin has a <em>story</em> worth telling</h1>
         <p id="heroDesc">A community where real women share their honest skincare journeys — the breakthroughs, the breakouts, and everything in between.</p>
         <div class="subscribe-row">
-          <input type="email" id="emailInput" placeholder="your@email.com"/>
+          <input type="email" placeholder="your@email.com"/>
           <button class="btn-sub" id="ctaBtn">Join Free</button>
         </div>
-        <p id="formNote">No spam. Just good skin talk.</p>
+        <p class="form-note" id="formNote">No spam. Just good skin talk.</p>
       </div>
       <div class="hero-author">
         <div id="authorImgWrap">🌷</div>
@@ -396,235 +197,198 @@
     </div>
   </section>
 
-  <!-- TOPIC NAV CARDS -->
-  <div class="section">
-    <div class="section-header">
+  <!-- ── TOPIC NAV CARDS (scroll to sections) ──────── -->
+  <div class="topics-wrap">
+    <div class="section-header" style="margin-bottom:28px;">
       <span class="section-tag" id="topicsLabel">What We Cover</span>
-      <div class="section-rule-h"></div>
+      <div class="section-rule"></div>
     </div>
     <div class="topics-grid">
-      <a class="topic-card fade-1" href="#section-routines">
+      <a class="topic-card fade-in"   href="#section-routines">
         <span class="topic-icon" id="topic1Icon">✨</span>
-        <div class="topic-name" id="topic1Name">Glow Routines</div>
-        <p class="topic-desc" id="topic1Desc">Real morning and night routines from our community — what products they use and why.</p>
-        <span class="topic-arrow">Read more →</span>
+        <div class="topic-name"  id="topic1Name">Glow Routines</div>
+        <p class="topic-desc"    id="topic1Desc">Real morning and night routines from our community — what products they use and why.</p>
+        <span class="topic-arrow">Explore section ↓</span>
       </a>
-      <a class="topic-card fade-2" href="#section-reviews">
+      <a class="topic-card fade-in-2" href="#section-reviews">
         <span class="topic-icon" id="topic2Icon">🧴</span>
-        <div class="topic-name" id="topic2Name">Honest Reviews</div>
-        <p class="topic-desc" id="topic2Desc">No PR-gifted bias here. Just genuine reviews of serums, moisturisers, SPFs, and more.</p>
-        <span class="topic-arrow">Read more →</span>
+        <div class="topic-name"  id="topic2Name">Honest Reviews</div>
+        <p class="topic-desc"    id="topic2Desc">No PR-gifted bias here. Just genuine reviews of serums, moisturisers, SPFs, and more.</p>
+        <span class="topic-arrow">Explore section ↓</span>
       </a>
-      <a class="topic-card fade-3" href="#section-stories">
+      <a class="topic-card fade-in-3" href="#section-stories">
         <span class="topic-icon" id="topic3Icon">💜</span>
-        <div class="topic-name" id="topic3Name">Skin Stories</div>
-        <p class="topic-desc" id="topic3Desc">Personal essays on acne, hyperpigmentation, ageing, and learning to love the skin you're in.</p>
-        <span class="topic-arrow">Read more →</span>
+        <div class="topic-name"  id="topic3Name">Skin Stories</div>
+        <p class="topic-desc"    id="topic3Desc">Personal essays on acne, hyperpigmentation, ageing, and learning to love the skin you're in.</p>
+        <span class="topic-arrow">Explore section ↓</span>
       </a>
     </div>
   </div>
 
-  <!-- ════════════════════════════════════════════ -->
-  <!-- SECTION 1: GLOW ROUTINES                    -->
-  <!-- ════════════════════════════════════════════ -->
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- SECTION 1: ROUTINES                           -->
+  <!-- ══════════════════════════════════════════════ -->
   <div class="content-section" id="section-routines">
     <div class="content-section-inner">
-      <div class="cs-eyebrow"><span></span><span id="s1Tag">Glow Routines</span></div>
+      <div class="cs-header">
+        <div class="cs-eyebrow"><span></span><span id="s1Tag">Glow Routines</span></div>
+        <a class="view-all-link" href="section.html?category=routines">View all routines →</a>
+      </div>
       <h2 class="cs-title" id="s1Title">The routines that <em>actually</em> work</h2>
       <p class="cs-intro" id="s1Intro">No 12-step processes. No £200 serums. Real women sharing the honest routines that transformed their skin — and the ones that didn't.</p>
-      <div class="posts-grid">
-        <div class="post-card featured">
-          <div class="post-thumb c1">🌿</div>
-          <div class="post-body">
-            <span class="post-tag" id="p1Tag">Routine</span>
-            <div class="post-title" id="p1Title">My 5-Step Minimalist Routine That Finally Cleared My Skin</div>
-            <p class="post-excerpt" id="p1Excerpt">After years of a 12-step routine, I stripped it all back. Here's what happened to my congested, oily skin when I stopped overcomplicating things.</p>
-            <div class="post-meta">
-              <span id="p1Author">Sofia A.</span>
-              <div class="post-meta-dot"></div>
-              <span id="p1Read">5 min read</span>
-            </div>
-            <div class="read-more">Read full story →</div>
-          </div>
-        </div>
-        <div class="post-card">
-          <div class="post-thumb c2">🌙</div>
-          <div class="post-body">
-            <span class="post-tag">Night Routine</span>
-            <div class="post-title">The 3-Product Night Routine I've Stuck to for 2 Years</div>
-            <p class="post-excerpt">Cleanser, retinol, moisturiser. That's it. Here's why less really is more for my sensitive, redness-prone skin.</p>
-            <div class="post-meta">
-              <span>Kezia B.</span><div class="post-meta-dot"></div><span>4 min read</span>
-            </div>
-            <div class="read-more">Read story →</div>
-          </div>
-        </div>
-        <div class="post-card">
-          <div class="post-thumb c5">☀️</div>
-          <div class="post-body">
-            <span class="post-tag">SPF Diaries</span>
-            <div class="post-title">Why I Finally Made SPF the Last Step of My Routine</div>
-            <p class="post-excerpt">I avoided sunscreen for years because of the white cast. Finding the right one changed everything — especially for my deeper skin tone.</p>
-            <div class="post-meta">
-              <span>Amara O.</span><div class="post-meta-dot"></div><span>6 min read</span>
-            </div>
-            <div class="read-more">Read story →</div>
-          </div>
-        </div>
+      <hr class="cs-rule"/>
+      <div class="posts-grid" id="grid-routines">
+        <div class="empty-state"><span class="emoji">✨</span>Loading routines…</div>
       </div>
     </div>
   </div>
 
-  <!-- ════════════════════════════════════════════ -->
-  <!-- SECTION 2: HONEST REVIEWS                   -->
-  <!-- ════════════════════════════════════════════ -->
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- SECTION 2: REVIEWS                            -->
+  <!-- ══════════════════════════════════════════════ -->
   <div class="content-section" id="section-reviews">
     <div class="content-section-inner">
-      <div class="cs-eyebrow"><span></span><span id="s2Tag">Honest Reviews</span></div>
+      <div class="cs-header">
+        <div class="cs-eyebrow"><span></span><span id="s2Tag">Honest Reviews</span></div>
+        <a class="view-all-link" href="section.html?category=reviews">View all reviews →</a>
+      </div>
       <h2 class="cs-title" id="s2Title">Tried, tested — and <em>brutally honest</em></h2>
       <p class="cs-intro" id="s2Intro">We try the products so you don't have to waste your money. Every review comes from real use, real skin, and zero brand deals.</p>
-      <div class="posts-grid">
-        <div class="post-card featured">
-          <div class="post-thumb c2">🌹</div>
-          <div class="post-body">
-            <span class="post-tag" id="p2Tag">Review</span>
-            <div class="post-title" id="p2Title">I Used Niacinamide Every Day for 90 Days — Honest Results</div>
-            <p class="post-excerpt" id="p2Excerpt">Everyone said it would change my skin. I was sceptical. I tracked my pores, texture, and dark spots weekly. The truth is more nuanced than you'd think.</p>
-            <div class="post-meta">
-              <span id="p2Author">Amara O.</span>
-              <div class="post-meta-dot"></div>
-              <span id="p2Read">7 min read</span>
-            </div>
-            <div class="read-more">Read full review →</div>
-          </div>
-        </div>
-        <div class="post-card">
-          <div class="post-thumb c4">🧪</div>
-          <div class="post-body">
-            <span class="post-tag">Ingredient</span>
-            <div class="post-title">AHA vs BHA: Which Exfoliant Is Actually Right for Your Skin?</div>
-            <p class="post-excerpt">I spent three months alternating between the two. Here's the honest breakdown of what each one did — and which skin types they genuinely suit.</p>
-            <div class="post-meta">
-              <span>Dr. Tolu A.</span><div class="post-meta-dot"></div><span>9 min read</span>
-            </div>
-            <div class="read-more">Read review →</div>
-          </div>
-        </div>
-        <div class="post-card">
-          <div class="post-thumb c6">💧</div>
-          <div class="post-body">
-            <span class="post-tag">Moisturiser</span>
-            <div class="post-title">10 Drugstore Moisturisers Ranked from Best to Worst</div>
-            <p class="post-excerpt">I patch-tested all ten on one side of my face over 8 weeks. Some surprised me. Others were a complete waste of money.</p>
-            <div class="post-meta">
-              <span>Lola F.</span><div class="post-meta-dot"></div><span>8 min read</span>
-            </div>
-            <div class="read-more">Read review →</div>
-          </div>
-        </div>
+      <hr class="cs-rule"/>
+      <div class="posts-grid" id="grid-reviews">
+        <div class="empty-state"><span class="emoji">🧴</span>Loading reviews…</div>
       </div>
     </div>
   </div>
 
-  <!-- ════════════════════════════════════════════ -->
-  <!-- QUOTE BAND                                  -->
-  <!-- ════════════════════════════════════════════ -->
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- SECTION 3: STORIES                            -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="content-section" id="section-stories">
+    <div class="content-section-inner">
+      <div class="cs-header">
+        <div class="cs-eyebrow"><span></span><span id="s3Tag">Skin Stories</span></div>
+        <a class="view-all-link" href="section.html?category=stories">View all stories →</a>
+      </div>
+      <h2 class="cs-title" id="s3Title">Real stories from <em>real skin</em></h2>
+      <p class="cs-intro" id="s3Intro">Personal essays on the skin journeys no one talks about. Acne, hyperpigmentation, ageing, self-acceptance — the messy, beautiful truth of it all.</p>
+      <hr class="cs-rule"/>
+      <div class="posts-grid" id="grid-stories">
+        <div class="empty-state"><span class="emoji">💜</span>Loading stories…</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── QUOTE BAND ────────────────────────────────── -->
   <div class="quote-band">
     <div class="quote-text" id="quoteText">"Good skin is not about perfection — it's about understanding yourself, being patient, and showing up consistently."</div>
     <div class="quote-attr" id="quoteAttr">— The Glow Diaries Philosophy</div>
   </div>
 
-  <!-- ════════════════════════════════════════════ -->
-  <!-- SECTION 3: SKIN STORIES                     -->
-  <!-- ════════════════════════════════════════════ -->
-  <div class="content-section" id="section-stories">
-    <div class="content-section-inner">
-      <div class="cs-eyebrow"><span></span><span id="s3Tag">Skin Stories</span></div>
-      <h2 class="cs-title" id="s3Title">Real stories from <em>real skin</em></h2>
-      <p class="cs-intro" id="s3Intro">Personal essays on the skin journeys no one talks about. Acne, hyperpigmentation, ageing, self-acceptance — the messy, beautiful truth of it all.</p>
-      <div class="posts-grid">
-        <div class="post-card featured">
-          <div class="post-thumb c3">💧</div>
-          <div class="post-body">
-            <span class="post-tag" id="p3Tag">Skin Story</span>
-            <div class="post-title" id="p3Title">Learning to Love My Melanin-Rich Skin in a Eurocentric Beauty World</div>
-            <p class="post-excerpt" id="p3Excerpt">Products that weren't made for us, shade ranges that erased us. This is my story of finding skincare that actually honours deeper skin tones.</p>
-            <div class="post-meta">
-              <span id="p3Author">Zara M.</span>
-              <div class="post-meta-dot"></div>
-              <span id="p3Read">8 min read</span>
-            </div>
-            <div class="read-more">Read full story →</div>
-          </div>
-        </div>
-        <div class="post-card">
-          <div class="post-thumb c1">🪞</div>
-          <div class="post-body">
-            <span class="post-tag">Acne Diaries</span>
-            <div class="post-title">I Had Cystic Acne for 7 Years. Here's What Finally Helped.</div>
-            <p class="post-excerpt">Antibiotics, facials, expensive creams — I tried everything. The thing that actually worked was the last thing I expected.</p>
-            <div class="post-meta">
-              <span>Priya K.</span><div class="post-meta-dot"></div><span>10 min read</span>
-            </div>
-            <div class="read-more">Read story →</div>
-          </div>
-        </div>
-        <div class="post-card">
-          <div class="post-thumb c6">🌸</div>
-          <div class="post-body">
-            <span class="post-tag">Ageing</span>
-            <div class="post-title">My First Wrinkle at 29 and Learning to Wear It Proudly</div>
-            <p class="post-excerpt">Society told me to panic. I decided to document it instead. A year-long journal of changing my relationship with ageing skin.</p>
-            <div class="post-meta">
-              <span>Chisom E.</span><div class="post-meta-dot"></div><span>7 min read</span>
-            </div>
-            <div class="read-more">Read story →</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- NEWSLETTER STRIP -->
+  <!-- ── NEWSLETTER ─────────────────────────────────── -->
   <div class="nl-strip" id="nl-section">
     <div class="nl-title" id="nlTitle">Join 4,000+ women in the Glow Community</div>
-    <p class="nl-sub" id="nlSub">Weekly skincare stories, ingredient deep-dives, and honest product reviews — straight to your inbox.</p>
+    <p class="nl-sub" id="nlSub">Weekly skincare stories, ingredient deep-dives, and honest reviews — straight to your inbox.</p>
     <div class="nl-form">
       <input type="email" placeholder="your@email.com"/>
       <button class="nl-btn" id="nlBtn">Subscribe Free</button>
     </div>
   </div>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <div>
-        <div class="footer-brand-name" id="footerBrand">Glow Diaries</div>
-        <div class="footer-tagline" id="footerTagline">A community for real skincare stories. No filters, no perfection — just honest glow.</div>
-      </div>
-      <div>
-        <div class="footer-col-title">Explore</div>
-        <ul class="footer-links">
-          <li><a href="#section-routines">Routines</a></li>
-          <li><a href="#section-reviews">Reviews</a></li>
-          <li><a href="#section-stories">Skin Stories</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-col-title">Community</div>
-        <ul class="footer-links">
-          <li><a href="#">Submit Your Story</a></li>
-          <li><a href="#nl-section">Newsletter</a></li>
-          <li><a href="#">Instagram</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span id="footerCopy">© 2025 Glow Diaries · All rights reserved</span>
-      <span class="footer-heart">Made with 💜 for every skin type</span>
-    </div>
-  </footer>
+  <footer id="site-footer"></footer>
 
-  <script src="app.js"></script>
+  <script src="cms.js"></script>
+  <script>
+    async function init() {
+      try {
+        const [settings, allPosts] = await Promise.all([
+          fetchSiteSettings(),
+          fetchPosts(null, 100)
+        ]);
+
+        const f = settings.fields;
+
+        // Accent colour
+        if (f.accentColor) {
+          const hex = f.accentColor.startsWith('#') ? f.accentColor : '#' + f.accentColor;
+          document.documentElement.style.setProperty('--plum', hex);
+        }
+
+        // Shared header + footer
+        renderHeader(f.siteName, f.headerTag, null);
+        renderFooter(f.siteName, f.footerCopy);
+        document.title = f.siteName || 'Glow Diaries';
+
+        // Hero
+        set('issueLabel', f.issueLabel);
+        set('heroTitle',  f.heroTitle);
+        set('heroDesc',   f.heroDesc);
+        set('ctaBtn',     f.ctaButtonText);
+        set('nlBtn',      f.ctaButtonText);
+        set('formNote',   f.formNote);
+        set('authorName', f.authorName);
+        set('authorBio',  f.authorBio);
+
+        // Topic cards
+        set('topicsLabel', f.topicsLabel);
+        set('topic1Icon',  f.topic1Icon);
+        set('topic1Name',  f.topic1Name);
+        set('topic1Desc',  f.topic1Desc);
+        set('topic2Icon',  f.topic2Icon);
+        set('topic2Name',  f.topic2Name);
+        set('topic2Desc',  f.topic2Desc);
+        set('topic3Icon',  f.topic3Icon);
+        set('topic3Name',  f.topic3Name);
+        set('topic3Desc',  f.topic3Desc);
+
+        // Section headers
+        set('s1Tag',   f.topic1Name);
+        set('s1Title', f.section1Title);
+        set('s1Intro', f.section1Intro);
+        set('s2Tag',   f.topic2Name);
+        set('s2Title', f.section2Title);
+        set('s2Intro', f.section2Intro);
+        set('s3Tag',   f.topic3Name);
+        set('s3Title', f.section3Title);
+        set('s3Intro', f.section3Intro);
+
+        // Quote + newsletter
+        set('quoteText', f.quoteText);
+        set('quoteAttr', f.quoteAttr);
+        set('nlTitle',   f.nlTitle);
+        set('nlSub',     f.nlSub);
+
+        // Author photo
+        const photoId = f.authorPhoto?.sys?.id;
+        if (photoId && settings.assets[photoId]) {
+          const wrap = document.getElementById('authorImgWrap');
+          wrap.innerHTML = `<img src="${settings.assets[photoId]}?w=200&h=200&fit=thumb&f=face" alt="${f.authorName || 'Author'}"/>`;
+          wrap.style.background = 'transparent';
+        }
+
+        // Sort posts into 3 buckets, show latest 3 each
+        const buckets = { routines: [], reviews: [], stories: [] };
+        allPosts.posts.forEach(p => {
+          const cat = p.fields.category;
+          if (buckets[cat]) buckets[cat].push(p);
+        });
+
+        ['routines', 'reviews', 'stories'].forEach(cat => {
+          const grid  = document.getElementById(`grid-${cat}`);
+          const posts = buckets[cat].slice(0, 3);
+          grid.innerHTML = posts.length
+            ? posts.map((p, i) => postCardHTML(p, i)).join('')
+            : `<div class="empty-state" style="grid-column:1/-1"><span class="emoji">🌸</span>No posts yet — add some in Contentful with category <strong>${cat}</strong>!</div>`;
+        });
+
+      } catch (err) {
+        console.error('Error:', err);
+      } finally {
+        hideLoader();
+      }
+    }
+
+    init();
+  </script>
 </body>
 </html>

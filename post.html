@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Loading… — Glow Diaries</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    /* ── POST HERO ── */
+    .post-hero {
+      background: linear-gradient(135deg, #f8f0ff 0%, #ede0ff 60%, #f5e8f8 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 64px 40px 56px; position: relative; overflow: hidden;
+    }
+    .post-hero::after {
+      content: ''; position: absolute; top: -60px; right: -60px;
+      width: 320px; height: 320px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(180,130,220,.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .post-hero-inner { max-width: 760px; margin: 0 auto; position: relative; z-index: 1; }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; color: var(--muted); text-decoration: none;
+      margin-bottom: 28px; transition: color .2s;
+    }
+    .back-link:hover { color: var(--plum); }
+    .post-hero-tag {
+      display: inline-block; margin-bottom: 18px;
+      font-size: 10px; font-weight: 500; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--plum);
+      background: rgba(107,63,160,.1); border-radius: 40px; padding: 4px 14px;
+    }
+    .post-hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(36px, 5vw, 58px);
+      font-weight: 300; line-height: 1.1; letter-spacing: -.5px;
+      color: var(--ink); margin-bottom: 20px;
+      animation: fadeUp .6s ease both;
+    }
+    .post-hero-title em { font-style: italic; color: var(--plum); }
+    .post-hero-excerpt {
+      font-size: 18px; line-height: 1.75; color: var(--muted);
+      max-width: 620px; margin-bottom: 32px;
+      animation: fadeUp .6s .1s ease both;
+    }
+    .post-byline {
+      display: flex; align-items: center; gap: 14px;
+      animation: fadeUp .6s .15s ease both;
+    }
+    .byline-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--blush-deep), var(--blush));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; border: 2px solid var(--border); flex-shrink: 0;
+      overflow: hidden;
+    }
+    .byline-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .byline-name { font-size: 14px; font-weight: 500; color: var(--ink); }
+    .byline-meta { font-size: 12px; color: var(--plum-soft); }
+
+    /* ── COVER EMOJI ── */
+    .post-cover {
+      max-width: 760px; margin: 0 auto;
+      padding: 0 40px;
+    }
+    .cover-block {
+      height: 280px; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 80px; margin-top: -1px;
+    }
+
+    /* ── POST BODY ── */
+    .post-content-wrap {
+      max-width: 760px; margin: 0 auto;
+      padding: 48px 40px 80px;
+    }
+    .post-body-text { line-height: 1.9; }
+    .post-body-text p {
+      font-size: 17px; color: var(--ink); margin-bottom: 24px; font-weight: 300;
+    }
+    .post-body-text p:first-child::first-letter {
+      font-family: var(--font-serif);
+      font-size: 64px; font-weight: 600; color: var(--plum);
+      float: left; line-height: .8; margin-right: 8px; margin-top: 6px;
+    }
+
+    /* ── MORE FROM SECTION ── */
+    .more-section {
+      border-top: 1px solid var(--border);
+      background: var(--blush);
+      padding: 56px 40px;
+    }
+    .more-inner { max-width: 1140px; margin: 0 auto; }
+    .more-title {
+      font-family: var(--font-serif); font-size: 28px; font-weight: 600;
+      color: var(--ink); margin-bottom: 32px;
+    }
+    .more-title em { font-style: italic; color: var(--plum); }
+
+    @media (max-width: 640px) {
+      .post-hero { padding: 48px 20px 44px; }
+      .post-cover, .post-content-wrap { padding-left: 20px; padding-right: 20px; }
+      .cover-block { height: 200px; font-size: 60px; }
+      .more-section { padding: 48px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loader"><div class="ld-petal">🌸</div><div class="ld-text">Loading your glow…</div></div>
+
+  <header id="site-header"></header>
+
+  <!-- POST HERO -->
+  <div class="post-hero">
+    <div class="post-hero-inner">
+      <a class="back-link" id="backLink" href="index.html">← Back</a>
+      <div class="post-hero-tag" id="postTag">Story</div>
+      <h1 class="post-hero-title" id="postTitle">Loading<em>…</em></h1>
+      <p class="post-hero-excerpt" id="postExcerpt"></p>
+      <div class="post-byline">
+        <div class="byline-avatar" id="bylineAvatar">🌷</div>
+        <div>
+          <div class="byline-name" id="postAuthor">Loading…</div>
+          <div class="byline-meta" id="postMeta"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COVER EMOJI BLOCK -->
+  <div class="post-cover">
+    <div class="cover-block t-purple" id="coverBlock">🌸</div>
+  </div>
+
+  <!-- POST BODY TEXT -->
+  <div class="post-content-wrap">
+    <div class="post-body-text" id="postBodyText">
+      <p>Loading content…</p>
+    </div>
+  </div>
+
+  <!-- MORE FROM THIS SECTION -->
+  <div class="more-section">
+    <div class="more-inner">
+      <div class="more-title">More <em id="moreLabel">stories</em> you'll love</div>
+      <div class="posts-grid" id="moreGrid"></div>
+    </div>
+  </div>
+
+  <!-- NEWSLETTER -->
+  <div class="nl-strip">
+    <div class="nl-title">Loved this story?</div>
+    <p class="nl-sub">Get stories like this straight to your inbox every week.</p>
+    <div class="nl-form">
+      <input type="email" placeholder="your@email.com"/>
+      <button class="nl-btn">Subscribe Free</button>
+    </div>
+  </div>
+
+  <footer id="site-footer"></footer>
+
+  <script src="cms.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const postId = params.get('id');
+
+    const COVER_CLASSES = ['t-purple','t-rose','t-blue','t-peach','t-green','t-pink'];
+    function randomCover() { return COVER_CLASSES[Math.floor(Math.random() * COVER_CLASSES.length)]; }
+
+    // Render body text: split long text on blank lines into <p> tags
+    function renderBody(text) {
+      if (!text) return '<p>This post has no body content yet. Add a <strong>body</strong> field in Contentful.</p>';
+      return text.split(/\n\n+/)
+        .map(block => block.trim())
+        .filter(Boolean)
+        .map(block => `<p>${block.replace(/\n/g, '<br/>')}</p>`)
+        .join('');
+    }
+
+    async function init() {
+      if (!postId) {
+        document.getElementById('postTitle').textContent = 'Post not found';
+        document.getElementById('postBodyText').innerHTML = '<p>No post ID provided in the URL.</p>';
+        hideLoader();
+        return;
+      }
+
+      try {
+        const [settings, post] = await Promise.all([
+          fetchSiteSettings(),
+          fetchPostById(postId)
+        ]);
+
+        const sf = settings.fields;
+        const f  = post.fields;
+
+        // Accent colour
+        if (sf.accentColor) {
+          const hex = sf.accentColor.startsWith('#') ? sf.accentColor : '#' + sf.accentColor;
+          document.documentElement.style.setProperty('--plum', hex);
+        }
+
+        renderHeader(sf.siteName, sf.headerTag, f.category);
+        renderFooter(sf.siteName, sf.footerCopy);
+
+        // Page title
+        document.title = `${f.title || 'Story'} — ${sf.siteName || 'Glow Diaries'}`;
+
+        // Back link goes to the right section
+        const backEl = document.getElementById('backLink');
+        backEl.href = f.category ? `section.html?category=${f.category}` : 'index.html';
+        backEl.textContent = `← Back to ${f.category || 'home'}`;
+
+        // Post header
+        set('postTag',    f.tag || f.category || 'Story');
+        set('postAuthor', f.author);
+
+        // Title — allow italics markup via *text*
+        const titleEl = document.getElementById('postTitle');
+        titleEl.innerHTML = (f.title || '').replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+        set('postExcerpt', f.excerpt);
+
+        // Byline meta
+        const metaParts = [];
+        if (f.readTime)    metaParts.push(f.readTime);
+        if (f.publishDate) metaParts.push(new Date(f.publishDate).toLocaleDateString('en-GB', { year:'numeric', month:'long', day:'numeric' }));
+        set('postMeta', metaParts.join(' · '));
+
+        // Author avatar from site settings photo
+        const photoId = sf.authorPhoto?.sys?.id;
+        if (photoId && settings.assets[photoId]) {
+          const av = document.getElementById('bylineAvatar');
+          av.innerHTML = `<img src="${settings.assets[photoId]}?w=88&h=88&fit=thumb&f=face" alt="${f.author || ''}"/>`;
+          av.style.background = 'transparent';
+        }
+
+        // Cover block
+        const cover = document.getElementById('coverBlock');
+        cover.textContent = f.coverEmoji || '🌸';
+        cover.className   = `cover-block ${randomCover()}`;
+
+        // Body text
+        document.getElementById('postBodyText').innerHTML = renderBody(f.body);
+
+        // "More from this section" — fetch 3 other posts in same category
+        set('moreLabel', f.tag || f.category || 'stories');
+        if (f.category) {
+          const more = await fetchPosts(f.category, 4);
+          const others = more.posts.filter(p => p.sys.id !== postId).slice(0, 3);
+          const grid = document.getElementById('moreGrid');
+          if (others.length) {
+            grid.innerHTML = others.map((p, i) => postCardHTML(p, i)).join('');
+          } else {
+            grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><span class="emoji">🌸</span>More stories coming soon!</div>`;
+          }
+        }
+
+      } catch (err) {
+        console.error('Error loading post:', err);
+        document.getElementById('postTitle').textContent = 'Could not load post';
+        document.getElementById('postBodyText').innerHTML = '<p>There was an error loading this post. Please try again.</p>';
+      } finally {
+        hideLoader();
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>

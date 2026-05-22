@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Glow Diaries</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    /* ── SECTION BANNER ── */
+    .section-banner {
+      background: linear-gradient(135deg, #f8f0ff 0%, #ede0ff 60%, #f5e8f8 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 72px 40px 60px;
+      position: relative; overflow: hidden;
+    }
+    .section-banner::after {
+      content: ''; position: absolute; bottom: -60px; right: -40px;
+      width: 300px; height: 300px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,160,192,.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .banner-inner { max-width: 1140px; margin: 0 auto; position: relative; z-index: 1; }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; color: var(--muted); text-decoration: none;
+      margin-bottom: 24px; transition: color .2s;
+    }
+    .back-link:hover { color: var(--plum); }
+    .banner-eyebrow {
+      font-size: 11px; font-weight: 500; letter-spacing: .22em;
+      text-transform: uppercase; color: var(--plum); margin-bottom: 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .banner-title {
+      font-family: var(--font-serif);
+      font-size: clamp(40px, 5vw, 64px);
+      font-weight: 300; line-height: 1.1; letter-spacing: -.6px;
+      color: var(--ink); margin-bottom: 16px;
+    }
+    .banner-title em { font-style: italic; color: var(--plum); }
+    .banner-desc { font-size: 16px; line-height: 1.8; color: var(--muted); max-width: 560px; }
+    .post-count { font-size: 12px; color: var(--plum-soft); margin-top: 16px; }
+
+    /* ── POSTS AREA ── */
+    .posts-area { max-width: 1140px; margin: 0 auto; padding: 56px 40px 80px; }
+
+    @media (max-width: 640px) {
+      .section-banner { padding: 48px 20px 44px; }
+      .posts-area { padding: 40px 20px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loader"><div class="ld-petal">🌸</div><div class="ld-text">Loading your glow…</div></div>
+
+  <header id="site-header"></header>
+
+  <!-- BANNER — title + description set from Contentful topic fields -->
+  <div class="section-banner">
+    <div class="banner-inner">
+      <a class="back-link" href="index.html">← Back to home</a>
+      <div class="banner-eyebrow" id="bannerEyebrow">🌸 Section</div>
+      <h1 class="banner-title" id="bannerTitle">Loading<em>…</em></h1>
+      <p class="banner-desc" id="bannerDesc"></p>
+      <div class="post-count" id="postCount"></div>
+    </div>
+  </div>
+
+  <!-- ALL POSTS GRID -->
+  <div class="posts-area">
+    <div class="posts-grid" id="postsGrid">
+      <div class="empty-state"><span class="emoji">🌸</span>Loading posts…</div>
+    </div>
+  </div>
+
+  <!-- NEWSLETTER -->
+  <div class="nl-strip">
+    <div class="nl-title">Enjoyed these stories?</div>
+    <p class="nl-sub">Get the best skincare stories and reviews delivered to your inbox every week.</p>
+    <div class="nl-form">
+      <input type="email" placeholder="your@email.com"/>
+      <button class="nl-btn">Subscribe Free</button>
+    </div>
+  </div>
+
+  <footer id="site-footer"></footer>
+
+  <script src="cms.js"></script>
+  <script>
+    // Read ?category=routines from the URL
+    const params   = new URLSearchParams(window.location.search);
+    const category = params.get('category') || 'routines';
+
+    // Map category → display info (fallback while Contentful loads)
+    const META = {
+      routines: { emoji: '✨', label: 'Glow Routines',   title: 'Routines that <em>actually</em> work' },
+      reviews:  { emoji: '🧴', label: 'Honest Reviews',  title: '<em>Brutally honest</em> product reviews' },
+      stories:  { emoji: '💜', label: 'Skin Stories',    title: 'Real stories from <em>real skin</em>' },
+    };
+    const meta = META[category] || META.routines;
+
+    // Set fallback title immediately so page doesn't look blank while loading
+    document.getElementById('bannerEyebrow').innerHTML = `${meta.emoji} ${meta.label}`;
+    document.getElementById('bannerTitle').innerHTML   = meta.title;
+    document.title = `${meta.label} — Glow Diaries`;
+
+    async function init() {
+      try {
+        const [settings, result] = await Promise.all([
+          fetchSiteSettings(),
+          fetchPosts(category)
+        ]);
+
+        const f = settings.fields;
+
+        // Accent colour
+        if (f.accentColor) {
+          const hex = f.accentColor.startsWith('#') ? f.accentColor : '#' + f.accentColor;
+          document.documentElement.style.setProperty('--plum', hex);
+        }
+
+        renderHeader(f.siteName, f.headerTag, category);
+        renderFooter(f.siteName, f.footerCopy);
+
+        // Use topic name/desc from settings to power the banner
+        const topicMap = {
+          routines: { name: f.topic1Name, icon: f.topic1Icon, desc: f.topic1Desc },
+          reviews:  { name: f.topic2Name, icon: f.topic2Icon, desc: f.topic2Desc },
+          stories:  { name: f.topic3Name, icon: f.topic3Icon, desc: f.topic3Desc },
+        };
+        const t = topicMap[category];
+        if (t?.name) {
+          document.getElementById('bannerEyebrow').textContent = `${t.icon || ''} ${t.name}`;
+          document.getElementById('bannerTitle').innerHTML = meta.title;
+          document.getElementById('bannerDesc').textContent = t.desc || '';
+          document.title = `${t.name} — ${f.siteName || 'Glow Diaries'}`;
+        }
+
+        // Render posts
+        const posts = result.posts;
+        const grid  = document.getElementById('postsGrid');
+
+        document.getElementById('postCount').textContent =
+          posts.length === 0 ? '' :
+          posts.length === 1 ? '1 story' :
+          `${posts.length} stories`;
+
+        if (!posts.length) {
+          grid.innerHTML = `
+            <div class="empty-state" style="grid-column:1/-1">
+              <span class="emoji">🌸</span>
+              No posts in this section yet.<br>Add some in Contentful under category <strong>${category}</strong>.
+            </div>`;
+        } else {
+          grid.innerHTML = posts.map((p, i) => postCardHTML(p, i)).join('');
+        }
+
+      } catch (err) {
+        console.error('Error loading section:', err);
+      } finally {
+        hideLoader();
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>
